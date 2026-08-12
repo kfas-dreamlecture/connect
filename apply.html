@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신청하기 | 드림렉쳐 커넥트</title>
+<meta name="description" content="드림렉쳐 커넥트 2026 하반기 온라인 진로세미나 신청 페이지. 9·10·11월 회차를 한 번에 신청할 수 있습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep: #0D3B2B;
+    --green-mid: #1A5C3F;
+    --green-bright: #3AAF72;
+    --green-light: #B8E8CC;
+    --green-pale: #EAF7EF;
+    --lime: #8FD14F;
+    --white: #FFFFFF;
+    --gray-light: #F4F6F4;
+    --text-dark: #0D1F15;
+    --text-mid: #3A5044;
+    --text-muted: #7A9488;
+    --border: #DAEADE;
+    --danger: #C2412D;
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow: 0 2px 24px rgba(13,59,43,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--gray-light);
+    color: var(--text-dark);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .nav-logo-badge {
+    background: var(--green-deep); color: #fff;
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: 13px; letter-spacing: 0.02em;
+    padding: 5px 11px; border-radius: 6px; white-space: nowrap;
+  }
+  .nav-sub { font-size: 12px; color: var(--text-muted); }
+  .nav-back {
+    font-size: 13px; font-weight: 500; color: var(--text-mid);
+    text-decoration: none; white-space: nowrap;
+  }
+  .nav-back:hover { color: var(--green-mid); text-decoration: underline; }
+
+  /* ── HEAD ── */
+  .head { background: var(--green-deep); color: #fff; padding: 48px 24px 44px; }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  .head-tag {
+    display: inline-block;
+    background: rgba(143,209,79,0.14); border: 1px solid rgba(143,209,79,0.45);
+    color: var(--lime);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 6px 14px; border-radius: 30px; margin-bottom: 18px;
+  }
+  .head-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(30px, 6vw, 42px); line-height: 1.15;
+    letter-spacing: -0.02em; margin-bottom: 12px;
+  }
+  .head-title .accent { color: var(--lime); }
+  .head-desc { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.76); line-height: 1.8; }
+
+  /* ── FORM ── */
+  main { padding: 32px 24px 72px; }
+  .card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-md); box-shadow: var(--shadow);
+    padding: 28px; margin-bottom: 18px;
+  }
+  .step {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+  }
+  .step-num {
+    flex: 0 0 24px; height: 24px; border-radius: 50%;
+    background: var(--green-deep); color: var(--lime);
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-title { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .step-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+
+  /* 회차 선택 */
+  .sessions { display: flex; flex-direction: column; gap: 12px; }
+  .session {
+    display: block; position: relative;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 16px 18px 16px 52px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .session:hover { border-color: var(--green-light); background: var(--green-pale); }
+  .session:has(input:checked) { border-color: var(--green-bright); background: var(--green-pale); }
+  .session:has(input:disabled) { cursor: not-allowed; opacity: 0.5; background: var(--gray-light); }
+  .session:has(input:disabled):hover { border-color: var(--border); background: var(--gray-light); }
+  .session input { position: absolute; left: 18px; top: 20px; width: 20px; height: 20px; accent-color: var(--green-bright); cursor: inherit; }
+  .session input:focus-visible { outline: 2px solid var(--green-mid); outline-offset: 2px; }
+  .session-when {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .session-majors { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+  .session-majors b { font-weight: 500; color: var(--text-dark); }
+  .session-closed {
+    display: inline-block; margin-left: 6px;
+    font-size: 11px; font-weight: 700; color: var(--danger);
+  }
+
+  /* 입력 */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  label.lbl { display: block; font-size: 13.5px; font-weight: 700; margin-bottom: 7px; }
+  .req { color: var(--green-bright); margin-left: 3px; }
+  .hint { font-size: 12px; font-weight: 400; color: var(--text-muted); margin-left: 6px; }
+  input[type="text"], input[type="tel"], input[type="email"], select, textarea {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--text-dark);
+    background: var(--white);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    padding: 12px 14px; transition: border-color 0.15s;
+  }
+  textarea { resize: vertical; min-height: 84px; line-height: 1.7; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-bright); }
+  input::placeholder, textarea::placeholder { color: #B4C5BB; }
+  .err-msg { font-size: 12.5px; color: var(--danger); margin-top: 6px; display: none; }
+  .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--danger); }
+  .field.invalid .err-msg { display: block; }
+
+  /* 회차별 질문 */
+  #qBlocks:empty + .q-empty { display: block; }
+  .q-empty { display: none; font-size: 13.5px; color: var(--text-muted); padding: 14px 16px; background: var(--gray-light); border-radius: var(--radius-sm); }
+  .q-block { margin-bottom: 18px; }
+  .q-block:last-child { margin-bottom: 0; }
+  .q-head {
+    display: inline-block; font-size: 12px; font-weight: 700; color: var(--green-mid);
+    background: var(--green-pale); border-radius: 6px; padding: 4px 10px; margin-bottom: 8px;
+  }
+
+  /* 동의 */
+  .privacy {
+    background: var(--gray-light); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px 18px;
+    font-size: 12.5px; color: var(--text-mid); line-height: 1.85;
+    max-height: 190px; overflow-y: auto; margin-bottom: 14px;
+  }
+  .privacy dt { font-weight: 700; color: var(--text-dark); margin-top: 10px; }
+  .privacy dt:first-child { margin-top: 0; }
+  .privacy dd { margin-left: 0; }
+  .agree { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 14px; font-weight: 500; }
+  .agree input { width: 19px; height: 19px; margin-top: 3px; accent-color: var(--green-bright); flex: 0 0 auto; cursor: inherit; }
+
+  /* 허니팟 — 화면에서 보이지 않지만 가로 스크롤을 만들지 않는 방식 */
+  .hp {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; border: 0;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+
+  /* 제출 */
+  .submit-area { text-align: center; padding-top: 4px; }
+  .btn-submit {
+    width: 100%; background: var(--green-deep); color: #fff;
+    font-family: inherit; font-size: 16px; font-weight: 700;
+    border: none; border-radius: var(--radius-sm);
+    padding: 17px 24px; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--green-mid); }
+  .btn-submit:disabled { background: #A9BDB1; cursor: not-allowed; }
+  .btn-submit:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  .form-note { font-size: 12.5px; color: var(--text-muted); margin-top: 12px; line-height: 1.7; }
+  .form-error {
+    display: none; background: #FBEDEA; border: 1px solid #F0C8C0; color: #93301F;
+    border-radius: var(--radius-sm); padding: 13px 16px; font-size: 13.5px;
+    margin-bottom: 16px; line-height: 1.7;
+  }
+  .form-error.on { display: block; }
+
+  /* 완료 */
+  #done { display: none; }
+  .done-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow); padding: 40px 28px; text-align: center; }
+  .done-mark {
+    width: 56px; height: 56px; border-radius: 50%; background: var(--green-pale);
+    color: var(--green-mid); font-size: 28px; line-height: 56px; margin: 0 auto 18px;
+  }
+  .done-title { font-family: 'Black Han Sans', sans-serif; font-size: 26px; margin-bottom: 10px; }
+  .done-desc { font-size: 14.5px; color: var(--text-mid); line-height: 1.85; margin-bottom: 22px; }
+  .done-id {
+    display: inline-block; background: var(--green-deep); color: var(--lime);
+    font-weight: 700; font-size: 15px; letter-spacing: 0.04em;
+    padding: 10px 20px; border-radius: var(--radius-sm); margin-bottom: 22px;
+  }
+  .done-list { text-align: left; background: var(--gray-light); border-radius: var(--radius-sm); padding: 16px 18px; font-size: 13.5px; color: var(--text-mid); line-height: 1.9; }
+  .done-list b { color: var(--text-dark); font-weight: 700; }
+  .done-back { display: inline-block; margin-top: 22px; font-size: 14px; font-weight: 700; color: var(--green-mid); text-decoration: none; }
+  .done-back:hover { text-decoration: underline; }
+
+  footer { background: var(--green-deep); color: rgba(255,255,255,0.6); padding: 28px 24px; font-size: 12.5px; }
+  footer b { display: block; color: #fff; font-weight: 500; font-size: 13.5px; margin-bottom: 4px; }
+
+  @media (max-width: 560px) {
+    .card { padding: 22px 18px; }
+    .field-grid { grid-template-columns: 1fr; gap: 18px; }
+    .head { padding: 36px 20px 34px; }
+    main { padding: 24px 16px 56px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <span class="nav-logo-badge">한국고등교육재단</span>
+    <span class="nav-sub">DREAMLECTURE CONNECT</span>
+  </div>
+  <a class="nav-back" href="./">← 프로그램 소개</a>
+</nav>
+
+<header class="head">
+  <div class="wrap">
+    <span class="head-tag">2026 하반기 · 9 · 10 · 11월</span>
+    <h1 class="head-title">드림렉쳐 커넥트<br><span class="accent">참가 신청</span></h1>
+    <p class="head-desc">
+      하반기 세 번의 세미나를 한 번에 신청할 수 있습니다.<br>
+      참여하고 싶은 회차만 골라 신청하셔도 됩니다.
+    </p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- 신청 폼 -->
+    <form id="form" novalidate>
+
+      <!-- 1. 회차 선택 -->
+      <section class="card">
+        <div class="step"><span class="step-num">1</span><h2 class="step-title">참여할 회차 선택</h2></div>
+        <p class="step-desc">원하는 회차를 모두 선택하세요. 최소 한 개는 선택해야 합니다.</p>
+        <div class="sessions" id="sessions"></div>
+        <p class="err-msg" id="errSessions">참여할 회차를 하나 이상 선택해 주세요.</p>
+      </section>
+
+      <!-- 2. 신청자 정보 -->
+      <section class="card">
+        <div class="step"><span class="step-num">2</span><h2 class="step-title">신청자 정보</h2></div>
+        <p class="step-desc">세미나 안내를 보내드릴 정보입니다. 정확히 입력해 주세요.</p>
+
+        <div class="field-grid">
+          <div class="field" data-for="school">
+            <label class="lbl" for="school">학교명<span class="req">*</span></label>
+            <input type="text" id="school" name="school" placeholder="00고등학교" autocomplete="off" maxlength="40">
+            <p class="err-msg">학교명을 입력해 주세요.</p>
+          </div>
+          <div class="field" data-for="grade">
+            <label class="lbl" for="grade">학년<span class="req">*</span></label>
+            <select id="grade" name="grade">
+              <option value="">선택해 주세요</option>
+              <option value="1학년">1학년</option>
+              <option value="2학년">2학년</option>
+              <option value="3학년">3학년</option>
+            </select>
+            <p class="err-msg">학년을 선택해 주세요.</p>
+          </div>
+        </div>
+
+        <div class="field-grid">
+          <div class="field" data-for="name">
+            <label class="lbl" for="name">성명<span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="홍길동" autocomplete="name" maxlength="20">
+            <p class="err-msg">성명을 입력해 주세요.</p>
+          </div>
+          <div class="field" data-for="phone">
+            <label class="lbl" for="phone">연락처<span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" autocomplete="tel" inputmode="numeric" maxlength="13">
+            <p class="err-msg">연락처를 010-1234-5678 형식으로 입력해 주세요.</p>
+          </div>
+        </div>
+
+        <div class="field" data-for="email">
+          <label class="lbl" for="email">이메일<span class="req">*</span><span class="hint">Zoom 참여 링크와 리마인드를 보내드립니다</span></label>
+          <input type="email" id="email" name="email" placeholder="example@email.com" autocomplete="email" maxlength="60">
+          <p class="err-msg">이메일 주소를 정확히 입력해 주세요.</p>
+        </div>
+
+        <div class="field" data-for="route">
+          <label class="lbl" for="route">드림렉쳐 커넥트를 어떻게 알게 되셨나요?<span class="req">*</span></label>
+          <input type="text" id="route" name="route" placeholder="예: 학교 게시판 포스터, 거점특강 안내, 선생님 추천" maxlength="100">
+          <p class="err-msg">알게 된 경로를 입력해 주세요.</p>
+        </div>
+      </section>
+
+      <!-- 3. 회차별 사전 질문 -->
+      <section class="card">
+        <div class="step"><span class="step-num">3</span><h2 class="step-title">멘토에게 미리 묻고 싶은 질문</h2></div>
+        <p class="step-desc">선택한 회차마다 따로 받습니다. 세미나 Q&amp;A에서 우선 다뤄집니다.</p>
+        <div id="qBlocks"></div>
+        <p class="q-empty">위에서 회차를 먼저 선택하면 질문 입력란이 나타납니다.</p>
+      </section>
+
+      <!-- 4. 개인정보 동의 -->
+      <section class="card">
+        <div class="step"><span class="step-num">4</span><h2 class="step-title">개인정보 수집·이용 동의</h2></div>
+        <p class="step-desc">아래 내용을 확인하신 뒤 동의해 주세요.</p>
+
+        <dl class="privacy">
+          <dt>수집·이용 목적</dt>
+          <dd>드림렉쳐 커넥트 온라인 진로세미나 참가 신청 접수, 참여 안내(Zoom 링크·리마인드) 발송, 프로그램 운영 및 만족도 확인, 운영 통계 작성</dd>
+          <dt>수집 항목</dt>
+          <dd>학교명, 학년, 성명, 연락처, 이메일 주소, 신청 경로, 사전 질문</dd>
+          <dt>보유·이용 기간</dt>
+          <dd>수집일로부터 <b>1년</b>이 지나거나 수집 목적이 달성되면 지체 없이 파기합니다.</dd>
+          <dt>동의를 거부할 권리</dt>
+          <dd>동의를 거부하실 수 있으나, 이 경우 참가 신청 접수가 불가능합니다.</dd>
+          <dt>문의</dt>
+          <dd>한국고등교육재단 지식나눔팀</dd>
+        </dl>
+
+        <label class="agree">
+          <input type="checkbox" id="agree" name="agree">
+          <span>위 개인정보 수집·이용에 동의합니다.<span class="req">*</span></span>
+        </label>
+        <p class="err-msg" id="errAgree">개인정보 수집·이용에 동의해야 신청할 수 있습니다.</p>
+      </section>
+
+      <!-- 봇 차단용 (사람에게는 보이지 않음) -->
+      <div class="hp" aria-hidden="true">
+        <label for="website">홈페이지</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-error" id="formError" role="alert"></div>
+
+      <div class="submit-area">
+        <button type="submit" class="btn-submit" id="submitBtn">신청서 제출하기</button>
+        <p class="form-note">제출 후 접수번호가 표시됩니다. 세미나 참여 링크는 각 회차 전에 이메일로 안내드립니다.</p>
+      </div>
+    </form>
+
+    <!-- 완료 화면 -->
+    <div id="done">
+      <div class="done-card">
+        <div class="done-mark">✓</div>
+        <h2 class="done-title">신청이 접수되었습니다</h2>
+        <p class="done-desc">
+          아래 접수번호를 저장해 두세요.<br>
+          문의하실 때 접수번호를 알려주시면 빠르게 확인할 수 있습니다.
+        </p>
+        <div class="done-id" id="doneId">—</div>
+        <div class="done-list" id="doneList"></div>
+        <a class="done-back" href="./">← 프로그램 소개로 돌아가기</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>한국고등교육재단 · 지식나눔팀</b>
+    드림렉쳐 커넥트 온라인 진로세미나
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   설정 — 이 두 줄만 바꾸면 됩니다  (설치안내.md 3단계 참고)
+   ══════════════════════════════════════════════════════════════ */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxjHcIsoLU98KAivA60zFdjrNuYeghppFhuUbF6eqW9cUxLUM1Trju7lOidAHiHoDej/exec';
+const TOKEN    = 'dreamlecture-connect-2026';
+/* ══════════════════════════════════════════════════════════════ */
+
+/* 회차 정보 — 일정이 바뀌면 여기만 고치세요 (Code.gs의 SESSIONS와 반드시 일치) */
+const SESSIONS = [
+  { id: '2026-09-15', date: '9월 15일', dow: '화',  time: '19:00 — 20:00', sci: '기계공학(모빌리티)',   hum: '국사학' },
+  { id: '2026-10-24', date: '10월 24일', dow: '토', time: '14:00 — 15:00', sci: '글로벌바이오메디컬공학', hum: '철학' },
+  { id: '2026-11-14', date: '11월 14일', dow: '토', time: '14:00 — 15:00', sci: '바이오 및 뇌공학',      hum: '법학' }
+];
+
+const $  = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+/* ── 회차 카드 렌더 (지난 회차는 자동으로 마감 처리) ── */
+const today = new Date(); today.setHours(0, 0, 0, 0);
+$('#sessions').innerHTML = SESSIONS.map((s) => {
+  const closed = new Date(s.id + 'T00:00:00') < today;
+  return `
+    <label class="session">
+      <input type="checkbox" name="session" value="${s.id}" ${closed ? 'disabled' : ''}>
+      <span class="session-when">${s.date}(${s.dow}) · ${s.time}${closed ? '<span class="session-closed">신청 마감</span>' : ''}</span>
+      <span class="session-majors">이공계 <b>${s.sci}</b> &nbsp;·&nbsp; 인문사회 <b>${s.hum}</b></span>
+    </label>`;
+}).join('');
+
+/* ── 선택한 회차에 맞춰 질문 입력란 생성 (입력값은 유지) ── */
+function syncQuestions() {
+  const picked = $$('input[name="session"]:checked').map((i) => i.value);
+  const box = $('#qBlocks');
+  const kept = {};
+  $$('#qBlocks textarea').forEach((t) => { kept[t.dataset.session] = t.value; });
+
+  box.innerHTML = picked.map((id) => {
+    const s = SESSIONS.find((x) => x.id === id);
+    return `
+      <div class="q-block">
+        <span class="q-head">${s.date}(${s.dow}) · ${s.sci} / ${s.hum}</span>
+        <textarea data-session="${id}" maxlength="500"
+          placeholder="이 회차 멘토에게 묻고 싶은 것을 자유롭게 적어주세요. (선택)"></textarea>
+      </div>`;
+  }).join('');
+
+  $$('#qBlocks textarea').forEach((t) => { if (kept[t.dataset.session]) t.value = kept[t.dataset.session]; });
+  if (picked.length) $('#errSessions').style.display = 'none';
+}
+$('#sessions').addEventListener('change', syncQuestions);
+
+/* ── 연락처 자동 하이픈 ── */
+$('#phone').addEventListener('input', (e) => {
+  const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+  e.target.value = d.length < 4 ? d
+    : d.length < 8 ? d.slice(0, 3) + '-' + d.slice(3)
+    : d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7);
+});
+
+/* ── 검증 ── */
+function setInvalid(id, bad) {
+  const f = document.querySelector(`.field[data-for="${id}"]`);
+  if (f) f.classList.toggle('invalid', bad);
+  return !bad;
+}
+function validate() {
+  let ok = true;
+  const v = (id) => $('#' + id).value.trim();
+
+  const picked = $$('input[name="session"]:checked');
+  if (!picked.length) { $('#errSessions').style.display = 'block'; ok = false; }
+  else { $('#errSessions').style.display = 'none'; }
+
+  ok = setInvalid('school', !v('school')) && ok;
+  ok = setInvalid('grade',  !v('grade'))  && ok;
+  ok = setInvalid('name',   !v('name'))   && ok;
+  ok = setInvalid('phone',  !/^01[016789]-\d{3,4}-\d{4}$/.test(v('phone'))) && ok;
+  ok = setInvalid('email',  !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) && ok;
+  ok = setInvalid('route',  !v('route'))  && ok;
+
+  const agreed = $('#agree').checked;
+  $('#errAgree').style.display = agreed ? 'none' : 'block';
+  if (!agreed) ok = false;
+
+  return ok;
+}
+$$('input, select').forEach((el) => {
+  el.addEventListener('blur', () => { if (el.id) setInvalid(el.id, false); });
+});
+
+/* ── 제출 ── */
+$('#form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = $('#formError');
+  errBox.classList.remove('on');
+
+  if (!validate()) {
+    errBox.textContent = '입력하지 않았거나 형식이 맞지 않는 항목이 있습니다. 붉게 표시된 곳을 확인해 주세요.';
+    errBox.classList.add('on');
+    (document.querySelector('.field.invalid') || $('#sessions')).scrollIntoView({ block: 'center' });
+    return;
+  }
+
+  if (ENDPOINT.startsWith('PASTE_')) {
+    errBox.textContent = '아직 신청 접수 주소가 설정되지 않았습니다. 지식나눔팀으로 문의해 주세요.';
+    errBox.classList.add('on');
+    return;
+  }
+
+  const btn = $('#submitBtn');
+  btn.disabled = true;
+  btn.textContent = '제출하는 중…';
+
+  const payload = {
+    token: TOKEN,
+    website: $('#website').value,               // 허니팟
+    school: $('#school').value.trim(),
+    grade:  $('#grade').value,
+    name:   $('#name').value.trim(),
+    phone:  $('#phone').value.trim(),
+    email:  $('#email').value.trim(),
+    route:  $('#route').value.trim(),
+    agree:  $('#agree').checked,
+    sessions: $$('input[name="session"]:checked').map((i) => ({
+      id: i.value,
+      question: (document.querySelector(`#qBlocks textarea[data-session="${i.value}"]`) || {}).value?.trim() || ''
+    }))
+  };
+
+  try {
+    // Content-Type을 지정하지 않아야 사전 요청(preflight) 없이 전송됩니다.
+    let out;
+    try {
+      const res = await fetch(ENDPOINT, { method: 'POST', body: JSON.stringify(payload) });
+      out = await res.json();
+    } catch (netErr) {
+      throw new Error('전송에 실패했습니다. 인터넷 연결을 확인하시고 잠시 후 다시 시도해 주세요. '
+        + '계속 실패하면 지식나눔팀으로 문의해 주세요.');
+    }
+
+    // 접수는 됐지만 서버가 거절한 경우 — 사유를 그대로 보여줍니다.
+    if (!out.ok) {
+      errBox.textContent = out.error || '접수 처리 중 문제가 발생했습니다. 지식나눔팀으로 문의해 주세요.';
+      errBox.classList.add('on');
+      errBox.scrollIntoView({ block: 'center' });
+      btn.disabled = false;
+      btn.textContent = '신청서 제출하기';
+      return;
+    }
+
+    // 서버가 실제로 접수한 회차만 보여줍니다(이미 신청된 회차는 제외될 수 있음).
+    const acceptedIds = Array.isArray(out.accepted) && out.accepted.length
+      ? out.accepted
+      : payload.sessions.map((s) => s.id);
+
+    $('#doneId').textContent = out.id;
+    $('#doneList').innerHTML =
+      '<b>신청한 회차</b><br>' +
+      acceptedIds.map((id) => {
+        const m = SESSIONS.find((x) => x.id === id);
+        return `· ${m.date}(${m.dow}) ${m.time}`;
+      }).join('<br>') +
+      (out.note ? `<br><br><b>안내</b><br>${out.note}` : '');
+    $('#form').style.display = 'none';
+    $('#done').style.display = 'block';
+    window.scrollTo({ top: 0 });
+  } catch (err) {
+    errBox.textContent = (err && err.message) ? err.message
+      : '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+    errBox.classList.add('on');
+    errBox.scrollIntoView({ block: 'center' });
+    btn.disabled = false;
+    btn.textContent = '신청서 제출하기';
+  }
+});
+</script>
+
+</body>
+</html>

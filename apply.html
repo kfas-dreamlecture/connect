@@ -12,23 +12,33 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --green-deep: #0D3B2B;
-    --green-mid: #1A5C3F;
-    --green-bright: #3AAF72;
-    --green-light: #B8E8CC;
-    --green-pale: #EAF7EF;
-    --lime: #8FD14F;
+    /* ── 2026 하반기 포스터 팔레트 (네이비) ── */
+    --navy-deep: #00023C;    /* 히어로·푸터 바탕 */
+    --navy-mid: #1B3FB0;     /* 딥블루 — 강조 텍스트·호버 */
+    --navy-bright: #2F5FE0;  /* 버튼·섹션 라벨 */
+    --navy-light: #C9D4EE;   /* 밝은 보조 */
+    --navy-pale: #F1F4FB;    /* 연한 배경 밴드 */
+    --sky: #8FB0FF;          /* 포인트 — "커넥트", 숫자 */
+
+    /* 기존 변수명은 그대로 두고 위 색을 가리키게 함 (본문 CSS는 수정 불필요) */
+    --green-deep: var(--navy-deep);
+    --green-mid: var(--navy-mid);
+    --green-bright: var(--navy-bright);
+    --green-light: var(--navy-light);
+    --green-pale: var(--navy-pale);
+    --lime: var(--sky);
+
     --white: #FFFFFF;
-    --gray-light: #F4F6F4;
-    --text-dark: #0D1F15;
-    --text-mid: #3A5044;
-    --text-muted: #7A9488;
-    --border: #DAEADE;
+    --gray-light: #F4F6FB;
+    --text-dark: #12172E;
+    --text-mid: #454E6E;
+    --text-muted: #737D9E;
+    --border: #E6EAF4;
     --danger: #C2412D;
     --radius-sm: 10px;
     --radius-md: 16px;
     --radius-lg: 24px;
-    --shadow: 0 2px 24px rgba(13,59,43,0.08);
+    --shadow: 0 2px 24px rgba(0,2,60,0.10);
   }
 
   html { scroll-behavior: smooth; }
@@ -68,7 +78,7 @@
   .wrap { max-width: 680px; margin: 0 auto; }
   .head-tag {
     display: inline-block;
-    background: rgba(143,209,79,0.14); border: 1px solid rgba(143,209,79,0.45);
+    background: rgba(143,176,255,0.16); border: 1px solid rgba(143,176,255,0.45);
     color: var(--lime);
     font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
     padding: 6px 14px; border-radius: 30px; margin-bottom: 18px;
@@ -140,7 +150,7 @@
   }
   textarea { resize: vertical; min-height: 84px; line-height: 1.7; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green-bright); }
-  input::placeholder, textarea::placeholder { color: #B4C5BB; }
+  input::placeholder, textarea::placeholder { color: #949FBF; }
   .err-msg { font-size: 12.5px; color: var(--danger); margin-top: 6px; display: none; }
   .field.invalid input, .field.invalid select, .field.invalid textarea { border-color: var(--danger); }
   .field.invalid .err-msg { display: block; }
@@ -184,7 +194,7 @@
     padding: 17px 24px; cursor: pointer; transition: background 0.2s;
   }
   .btn-submit:hover:not(:disabled) { background: var(--green-mid); }
-  .btn-submit:disabled { background: #A9BDB1; cursor: not-allowed; }
+  .btn-submit:disabled { background: #8A94B5; cursor: not-allowed; }
   .btn-submit:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
   .form-note { font-size: 12.5px; color: var(--text-muted); margin-top: 12px; line-height: 1.7; }
   .form-error {

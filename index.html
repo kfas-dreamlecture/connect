@@ -4,823 +4,569 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>드림렉쳐 커넥트 | 온라인 진로 세미나</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<meta name="description" content="한국고등교육재단 장학생이 직접 들려주는 전공·진로 탐색 온라인 세미나. 이공계·인문사회 멘토 2인과 함께하는 1시간.">
+<meta property="og:title" content="드림렉쳐 커넥트 | 온라인 진로 세미나">
+<meta property="og:description" content="한국고등교육재단 장학생이 직접 들려주는 전공·진로 탐색 온라인 세미나.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img-02.png">
+<link rel="icon" href="assets/img-02.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@1.3.9/dist/web/variable/pretendardvariable.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    /* ── 2026 하반기 포스터 팔레트 (네이비) ── */
-    --navy-deep: #00023C;    /* 히어로·푸터 바탕 */
-    --navy-mid: #1B3FB0;     /* 딥블루 — 강조 텍스트·호버 */
-    --navy-bright: #2F5FE0;  /* 버튼·섹션 라벨 */
-    --navy-light: #C9D4EE;   /* 밝은 보조 */
-    --navy-pale: #F1F4FB;    /* 연한 배경 밴드 */
-    --sky: #8FB0FF;          /* 포인트 — "커넥트", 숫자 */
-
-    /* 기존 변수명은 그대로 두고 위 색을 가리키게 함 (본문 CSS는 수정 불필요) */
-    --green-deep: var(--navy-deep);
-    --green-mid: var(--navy-mid);
-    --green-bright: var(--navy-bright);
-    --green-light: var(--navy-light);
-    --green-pale: var(--navy-pale);
-    --lime: var(--sky);
-
-    --white: #FFFFFF;
-    --gray-light: #F4F6FB;
-    --text-dark: #12172E;
-    --text-mid: #454E6E;
-    --text-muted: #737D9E;
-    --border: #E6EAF4;
-    --radius-sm: 10px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-    --radius-xl: 36px;
-    --shadow: 0 2px 24px rgba(0,2,60,0.10);
+    --navy:        #152452;  /* 브랜드 네이비 — 헤더·강조 */
+    --navy-deep:   #0E1936;  /* 히어로·푸터 바탕 */
+    --sky:         #8FB0FF;  /* 포인트 — 배지·CTA (어두운 배경용) */
+    --sky-deep:    #2F5FE0;  /* 라벨 텍스트 (밝은 배경용) */
+    --beige:       #F4F2EC;  /* 페이지 바탕 */
+    --beige-dark:  #EBE7DD;  /* 섹션 밴드 */
+    --line:        #EEEBE2;
+    --white:       #FFFFFF;
+    --ink:         #1A2138;
+    --ink-mid:     #4A5169;
+    --ink-soft:    #5A6178;
+    --ink-muted:   #8A8578;
+    --shadow:      0 2px 4px rgba(21,36,82,.05);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 160px; }
 
   body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--white);
-    color: var(--text-dark);
-    line-height: 1.7;
+    margin: 0;
+    background: var(--beige);
+    color: var(--ink);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, "Malgun Gothic", sans-serif;
     -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between;
+  a { color: var(--navy); text-decoration: none; }
+  img { display: block; }
+  button { font-family: inherit; }
+
+  @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+  /* ── NAV ────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(21,36,82,.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.1);
   }
-  .nav-logo { display: flex; align-items: center; gap: 10px; }
-  .nav-logo-badge {
-    background: var(--green-deep);
-    color: white;
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.02em;
-    padding: 5px 11px;
-    border-radius: 6px;
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 44px;
+    height: 154px; display: flex; align-items: center; justify-content: space-between; gap: 32px;
   }
-  .nav-sub { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+  .nav-brand { display: flex; align-items: center; gap: 16px; }
+  .nav-brand img {
+    height: 118px; width: auto;
+    filter: drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff)
+            drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff)
+            drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff)
+            drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff);
+  }
+  .nav-brand span { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
+  .nav-menu { display: flex; align-items: center; gap: 28px; }
+  .nav-menu a { color: rgba(255,255,255,.72); font-size: 14px; font-weight: 600; white-space: nowrap; transition: color .2s; }
+  .nav-menu a:hover { color: var(--sky); }
   .nav-cta {
-    background: var(--green-bright);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 9px 18px;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
+    background: var(--sky); color: var(--navy) !important;
+    font-size: 14px; font-weight: 800; padding: 11px 20px; border-radius: 999px;
+    white-space: nowrap; transition: background .2s;
   }
-  .nav-cta:hover { background: var(--green-mid); }
+  .nav-cta:hover { background: #fff; }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    background: var(--green-deep);
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 120px 24px 80px;
-    position: relative;
-    overflow: hidden;
+  /* ── HERO ───────────────────────────────────────── */
+  .hero { position: relative; height: 600px; overflow: hidden; background: var(--navy-deep); }
+  .hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; opacity: .4; animation: slowZoom 24s ease-out both;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -120px; right: -80px;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: var(--green-mid);
-    opacity: 0.35;
+  .hero-veil {
+    position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(14,25,54,.95) 0%, rgba(14,25,54,.78) 45%, rgba(14,25,54,.4) 100%);
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: -100px;
-    width: 360px; height: 360px;
-    border-radius: 50%;
-    background: var(--green-bright);
-    opacity: 0.12;
+  .hero-inner {
+    position: relative; max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 26px;
   }
-  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
-  .hero-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: var(--green-light);
-    font-size: 13px; font-weight: 500;
-    padding: 7px 14px;
-    border-radius: 30px;
-    margin-bottom: 28px;
-    letter-spacing: 0.04em;
+  .eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .2em; color: var(--sky); }
+  .hero h1 { font-size: 72px; line-height: 1.08; letter-spacing: -.045em; font-weight: 800; color: #fff; }
+  .hero-sub { font-size: 24px; font-weight: 700; letter-spacing: -.03em; color: var(--sky); }
+  .hero-desc { max-width: 600px; font-size: 16.5px; line-height: 1.85; color: rgba(255,255,255,.72); text-wrap: pretty; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .hero-chips span {
+    font-size: 13px; font-weight: 700; color: #fff;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+    border-radius: 999px; padding: 10px 18px;
   }
-  .hero-tag-dot { width: 7px; height: 7px; background: var(--lime); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .hero-title {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: clamp(48px, 10vw, 80px);
-    color: var(--white);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-  }
-  .hero-title-accent { color: var(--lime); }
-  .hero-sub {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: clamp(20px, 4vw, 30px);
-    color: var(--green-light);
-    margin-bottom: 24px;
-    letter-spacing: 0.01em;
-  }
-  .hero-desc {
-    font-size: 16px; color: rgba(255,255,255,0.7);
-    font-weight: 300; line-height: 1.8;
-    max-width: 520px;
-    margin-bottom: 44px;
-  }
-  .hero-stats {
-    display: flex; gap: 32px; flex-wrap: wrap;
-    margin-bottom: 48px;
-  }
-  .hero-stat { }
-  .hero-stat-num {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 32px; color: var(--lime);
-  }
-  .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 300; margin-top: 2px; }
-  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn-primary {
-    background: var(--lime);
-    color: var(--green-deep);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 700; font-size: 15px;
-    padding: 16px 32px;
-    border-radius: var(--radius-sm);
-    border: none; cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none; display: inline-block;
-  }
-  .btn-primary:hover { background: var(--white); transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent;
-    color: var(--white);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 500; font-size: 15px;
-    padding: 16px 28px;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255,255,255,0.3);
-    cursor: pointer;
-    text-decoration: none; display: inline-block;
-    transition: all 0.2s;
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
-  .hero-scroll {
-    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.4); font-size: 11px;
-    animation: float 2.5s ease-in-out infinite;
-    z-index: 2;
-  }
-  .hero-scroll-arrow { width: 20px; height: 20px; border-right: 2px solid rgba(255,255,255,0.4); border-bottom: 2px solid rgba(255,255,255,0.4); transform: rotate(45deg); }
-  @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
 
-  /* ── SECTIONS COMMON ── */
-  section { padding: 80px 24px; }
-  .section-inner { max-width: 760px; margin: 0 auto; }
-  .section-tag {
-    font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
-    color: var(--green-bright); text-transform: uppercase;
-    margin-bottom: 12px;
+  /* ── STATS BAND ─────────────────────────────────── */
+  .stats { background: var(--navy); color: #fff; }
+  .stats-inner {
+    max-width: 1200px; margin: 0 auto; padding: 44px 40px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   }
-  .section-title {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: clamp(26px, 5vw, 40px);
-    color: var(--text-dark);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-  .section-desc { font-size: 16px; color: var(--text-mid); line-height: 1.85; max-width: 600px; }
+  .stat { display: flex; flex-direction: column; gap: 8px; border-left: 2px solid rgba(143,176,255,.5); padding-left: 20px; }
+  .stat-num { font-size: 38px; font-weight: 800; letter-spacing: -.035em; line-height: 1; color: var(--sky); }
+  .stat-label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.62); }
 
-  /* ── ABOUT ── */
-  .about { background: var(--green-pale); }
-  .about-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 48px; }
-  .about-card {
-    background: var(--white);
-    border-radius: var(--radius-md);
-    padding: 28px 24px;
-    border: 1px solid var(--border);
+  /* ── SECTION HEADS ──────────────────────────────── */
+  .section { max-width: 1200px; margin: 0 auto; padding: 104px 40px 0; display: flex; flex-direction: column; gap: 32px; }
+  .section-head { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
+  .label { font-size: 12px; font-weight: 800; letter-spacing: .18em; color: var(--sky-deep); }
+  .section-head h2 { font-size: 40px; line-height: 1.28; letter-spacing: -.035em; font-weight: 800; }
+  .section-head p { font-size: 15.5px; line-height: 1.8; color: var(--ink-mid); text-wrap: pretty; }
+
+  /* ── ABOUT ──────────────────────────────────────── */
+  .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .feature {
+    background: var(--white); border-radius: 20px; padding: 32px 28px 34px;
+    display: flex; flex-direction: column; gap: 12px;
+    box-shadow: var(--shadow); border-top: 3px solid var(--sky);
   }
-  .about-card-icon {
-    width: 44px; height: 44px;
-    background: var(--green-pale);
-    border-radius: 10px;
+  .feature h3 { font-size: 19px; font-weight: 800; letter-spacing: -.025em; }
+  .feature p { font-size: 14.5px; line-height: 1.75; color: var(--ink-soft); text-wrap: pretty; }
+
+  /* ── SCHEDULE ───────────────────────────────────── */
+  .schedule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .session {
+    background: var(--white); border-radius: 20px; padding: 28px 30px 30px;
+    display: flex; flex-direction: column; gap: 18px; box-shadow: var(--shadow);
+  }
+  .session-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 38px; }
+  .session-date { display: flex; align-items: baseline; gap: 8px; }
+  .session-month { font-size: 13px; font-weight: 800; letter-spacing: .14em; color: var(--sky-deep); }
+  .session-day { font-size: 34px; font-weight: 800; letter-spacing: -.04em; color: var(--navy); line-height: 1; }
+  .badge { flex: none; font-size: 11.5px; font-weight: 800; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  .badge-open { background: var(--sky); color: var(--navy); }
+  .badge-done { background: #EFECE3; color: #9A9484; }
+  .session-when { font-size: 13.5px; font-weight: 700; color: var(--ink-mid); }
+  .session-majors { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .major { display: flex; gap: 10px; align-items: baseline; min-height: 44px; }
+  .major-type { flex: none; width: 56px; font-size: 12px; font-weight: 800; color: var(--sky-deep); }
+  .major-name { font-size: 14.5px; font-weight: 700; line-height: 1.5; color: var(--navy); }
+
+  /* ── HOW ────────────────────────────────────────── */
+  .how { margin-top: 104px; background: var(--beige-dark); padding: 96px 0; }
+  .how .section { padding-top: 0; }
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    background: var(--white); border-radius: 16px; padding: 26px 30px;
+    display: grid; grid-template-columns: 44px 200px 1fr; gap: 24px; align-items: center;
+    box-shadow: var(--shadow);
+  }
+  .step-no {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--navy); color: var(--sky);
+    font-size: 14px; font-weight: 800;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    margin-bottom: 14px;
   }
-  .about-card-title { font-weight: 700; font-size: 15px; color: var(--text-dark); margin-bottom: 6px; }
-  .about-card-desc { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+  .step h3 { font-size: 19px; font-weight: 800; letter-spacing: -.03em; color: var(--navy); }
+  .step p { font-size: 14.5px; line-height: 1.75; color: var(--ink-mid); text-wrap: pretty; }
 
-  /* ── SCHEDULE ── */
-  .schedule { background: var(--white); }
-  .schedule-tabs { display: flex; gap: 8px; margin-bottom: 32px; margin-top: 40px; }
-  .tab-btn {
-    padding: 9px 20px;
-    border-radius: 30px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text-mid);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s;
+  /* ── APPLY ──────────────────────────────────────── */
+  .apply {
+    max-width: 1200px; margin: 0 auto; padding: 104px 40px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;
   }
-  .tab-btn.active { background: var(--green-deep); color: white; border-color: var(--green-deep); }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-  .schedule-list { display: flex; flex-direction: column; gap: 14px; }
-  .schedule-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 24px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 20px;
-    align-items: start;
-    transition: border-color 0.2s;
+  .apply-card {
+    background: var(--white); border-radius: 20px; padding: 44px 42px;
+    display: flex; flex-direction: column; gap: 18px; box-shadow: var(--shadow);
   }
-  .schedule-card:hover { border-color: var(--green-bright); }
-  .schedule-card.done { opacity: 0.6; }
-  .schedule-card.next { border-color: var(--green-bright); background: var(--green-pale); }
-  .schedule-date-block { text-align: center; min-width: 60px; }
-  .schedule-month { font-size: 11px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; }
-  .schedule-day { font-family: 'Black Han Sans', sans-serif; font-size: 32px; color: var(--green-deep); line-height: 1; }
-  .schedule-weekday { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-  .schedule-info { }
-  .schedule-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-  .badge {
-    font-size: 11px; font-weight: 700; padding: 4px 10px;
-    border-radius: 20px; letter-spacing: 0.04em;
+  .apply-card h2 { font-size: 32px; line-height: 1.3; letter-spacing: -.035em; font-weight: 800; }
+  .apply-card > p { font-size: 15.5px; line-height: 1.8; color: var(--ink-mid); text-wrap: pretty; }
+  .apply-list { display: flex; flex-direction: column; gap: 11px; margin-top: 6px; }
+  .apply-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: #F8F7F3; border-radius: 14px; padding: 18px 20px;
   }
-  .badge-done { background: #E7EAF2; color: #6B7597; }
-  .badge-next { background: var(--lime); color: var(--green-deep); }
-  .badge-soon { background: var(--green-light); color: var(--green-mid); }
-  .badge-fall { background: var(--green-pale); color: var(--green-mid); border: 1px solid var(--border); }
-  .schedule-time { font-size: 13px; color: var(--text-muted); }
-  .schedule-majors { display: flex; gap: 10px; flex-wrap: wrap; }
-  .major-chip {
-    display: flex; align-items: center; gap: 7px;
-    background: var(--gray-light);
-    border-radius: 8px;
-    padding: 9px 14px;
-    font-size: 13px;
+  .apply-item::before {
+    content: ""; flex: none; margin-top: 11px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--sky);
   }
-  .major-chip-type {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
-    padding: 2px 7px; border-radius: 4px;
-  }
-  .chip-stem { background: #DCE4FB; color: #1B3FB0; }
-  .chip-hum { background: #E7E4FA; color: #4432A8; }
-  .major-chip-name { color: var(--text-dark); font-weight: 500; }
-
-  /* ── HOW IT WORKS ── */
-  .how { background: var(--green-deep); color: white; }
-  .how .section-title { color: white; }
-  .how .section-desc { color: rgba(255,255,255,0.65); }
-  .how .section-tag { color: var(--lime); }
-  .timeline { margin-top: 48px; display: flex; flex-direction: column; gap: 0; }
-  .timeline-item {
-    display: grid; grid-template-columns: 80px 1fr;
-    gap: 20px; align-items: start;
-    padding-bottom: 0;
-  }
-  .timeline-left { display: flex; flex-direction: column; align-items: center; }
-  .timeline-num {
-    width: 44px; height: 44px;
-    background: var(--lime);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 18px;
-    color: var(--green-deep);
-    flex-shrink: 0;
-  }
-  .timeline-line { width: 2px; background: rgba(255,255,255,0.1); flex: 1; min-height: 32px; margin-top: 6px; }
-  .timeline-item:last-child .timeline-line { display: none; }
-  .timeline-content { padding-bottom: 32px; }
-  .timeline-title { font-weight: 700; font-size: 16px; color: var(--white); margin-bottom: 4px; }
-  .timeline-time { font-size: 12px; color: var(--lime); font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .timeline-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
-
-  /* ── APPLY ── */
-  .apply { background: var(--green-pale); }
-  .apply-box {
-    background: var(--white);
-    border-radius: var(--radius-xl);
-    padding: 48px 40px;
-    border: 1.5px solid var(--border);
-    margin-top: 40px;
-    text-align: center;
-  }
-  .apply-emoji { font-size: 48px; margin-bottom: 16px; display: block; }
-  .apply-title { font-family: 'Black Han Sans', sans-serif; font-size: 28px; color: var(--text-dark); margin-bottom: 12px; }
-  .apply-desc { font-size: 15px; color: var(--text-mid); line-height: 1.8; max-width: 480px; margin: 0 auto 32px; }
-  .apply-conditions {
-    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-    margin-bottom: 36px;
-  }
-  .condition-chip {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--green-pale);
-    border: 1px solid var(--green-light);
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-size: 14px; color: var(--green-mid); font-weight: 500;
-  }
-  .condition-icon { font-size: 18px; }
+  .apply-item p { font-size: 15px; line-height: 1.7; color: #2A3149; }
   .apply-btn {
-    display: inline-block;
-    background: var(--green-deep);
-    color: white;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 700; font-size: 16px;
-    padding: 18px 48px;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition: all 0.2s;
-    border: none; cursor: pointer;
+    align-self: flex-start; margin-top: 10px;
+    background: var(--navy); color: #fff !important;
+    font-size: 15.5px; font-weight: 800; padding: 17px 36px; border-radius: 999px;
+    transition: background .2s, color .2s;
   }
-  .apply-btn:hover { background: var(--green-mid); transform: translateY(-2px); }
-  .apply-note { font-size: 13px; color: var(--text-muted); margin-top: 16px; }
+  .apply-btn:hover { background: var(--sky); color: var(--navy) !important; }
+  .apply-note { font-size: 13px; color: var(--ink-muted); font-weight: 500; }
+  .apply-photo { border-radius: 20px; overflow: hidden; box-shadow: 0 24px 56px -30px rgba(21,36,82,.5); min-height: 320px; }
+  .apply-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* ── FAQ ── */
-  .faq { background: var(--white); }
-  .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 2px; }
-  .faq-item { border-bottom: 1px solid var(--border); }
+  /* ── FAQ ────────────────────────────────────────── */
+  .faq { max-width: 900px; margin: 0 auto; padding: 104px 40px 0; display: flex; flex-direction: column; gap: 32px; }
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item { background: var(--white); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
   .faq-q {
-    width: 100%; text-align: left;
-    background: none; border: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px; font-weight: 500; color: var(--text-dark);
-    padding: 20px 0;
-    display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; gap: 12px;
+    width: 100%; border: none; background: transparent; text-align: left;
+    padding: 24px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    cursor: pointer; font-size: 16.5px; font-weight: 700; color: var(--navy); letter-spacing: -.02em; line-height: 1.5;
   }
-  .faq-q-text { flex: 1; }
-  .faq-icon { font-size: 20px; color: var(--green-bright); transition: transform 0.2s; flex-shrink: 0; }
+  .faq-icon { flex: none; font-size: 22px; font-weight: 400; color: var(--sky-deep); transition: transform .25s; }
   .faq-item.open .faq-icon { transform: rotate(45deg); }
-  .faq-a { font-size: 14px; color: var(--text-mid); line-height: 1.8; padding-bottom: 20px; display: none; }
-  .faq-item.open .faq-a { display: block; }
+  .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; overflow: hidden; }
+  .faq-item.open .faq-a { grid-template-rows: 1fr; }
+  .faq-a > div { min-height: 0; overflow: hidden; }
+  .faq-a p { padding: 0 28px 26px; font-size: 15px; line-height: 1.8; color: var(--ink-mid); text-wrap: pretty; }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--green-deep);
-    color: rgba(255,255,255,0.5);
-    padding: 48px 24px;
-    text-align: center;
-  }
-  .footer-logo {
-    font-family: 'Black Han Sans', sans-serif;
-    font-size: 18px; color: white; margin-bottom: 8px;
-  }
-  .footer-sub { font-size: 13px; margin-bottom: 20px; }
-  .footer-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.15); margin: 20px auto; }
-  .footer-copy { font-size: 12px; }
+  .tail { height: 96px; }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    nav { padding: 12px 16px; }
-    section { padding: 60px 16px; }
-    .hero { padding: 100px 16px 70px; }
-    .hero-stats { gap: 20px; }
-    .apply-box { padding: 32px 20px; }
-    .timeline-item { grid-template-columns: 60px 1fr; gap: 12px; }
-    .schedule-card { grid-template-columns: 1fr; }
-    .schedule-date-block { display: flex; gap: 8px; align-items: baseline; }
-    .schedule-day { font-size: 24px; }
+  /* ── FOOTER ─────────────────────────────────────── */
+  footer { background: var(--navy-deep); color: rgba(255,255,255,.55); padding: 52px 0; }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap;
+  }
+  .footer-col { display: flex; flex-direction: column; gap: 16px; }
+  .footer-logo { align-self: flex-start; opacity: .85; transition: opacity .2s; }
+  .footer-logo:hover { opacity: 1; }
+  .footer-logo img { width: 232px; height: 100px; object-fit: contain; object-position: left center; filter: brightness(0) invert(1); }
+  .footer-col p { font-size: 13.5px; line-height: 1.9; }
+  .footer-col a { color: rgba(255,255,255,.75); }
+  .footer-col a:hover { color: var(--sky); }
+
+  /* ── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 1100px) {
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .schedule-grid { grid-template-columns: repeat(2, 1fr); }
+    .step { grid-template-columns: 44px 160px 1fr; gap: 18px; }
+  }
+
+  @media (max-width: 900px) {
+    html { scroll-padding-top: 110px; }
+    .nav-inner { height: 96px; padding: 0 24px; }
+    .nav-brand img { height: 68px; }
+    .nav-brand span { font-size: 17px; }
+    .nav-menu { gap: 18px; }
+    .nav-menu a:not(.nav-cta) { display: none; }
+    .hero { height: auto; padding: 72px 0 76px; }
+    .hero h1 { font-size: 52px; }
+    .hero-sub { font-size: 20px; }
+    .hero-inner, .stats-inner, .section, .apply, .faq, .footer-inner { padding-left: 24px; padding-right: 24px; }
+    .section, .apply, .faq { padding-top: 76px; }
+    .how { margin-top: 76px; padding: 72px 0; }
+    .how .section { padding-top: 0; }
+    .section-head h2 { font-size: 32px; }
+    .apply { grid-template-columns: 1fr; }
+    .apply-card { padding: 34px 28px; }
+    .apply-photo { min-height: 240px; }
+    .step { grid-template-columns: 34px 1fr; gap: 10px 16px; padding: 22px 24px; }
+    .step h3 { grid-column: 2; }
+    .step p { grid-column: 2; }
+  }
+
+  @media (max-width: 640px) {
+    .nav-brand span { display: none; }
+    .hero h1 { font-size: 40px; }
+    .hero-desc { font-size: 15.5px; }
+    .stats-inner { grid-template-columns: 1fr; gap: 18px; padding: 32px 24px; }
+    .stat-num { font-size: 30px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .schedule-grid { grid-template-columns: 1fr; }
+    .section-head h2 { font-size: 27px; }
+    .apply-card h2 { font-size: 25px; }
+    .apply-btn { align-self: stretch; text-align: center; padding: 16px 24px; }
+    .faq-q { padding: 20px 20px; font-size: 15.5px; }
+    .faq-a p { padding: 0 20px 22px; }
+    .footer-logo img { width: 180px; height: 78px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <span class="nav-logo-badge">한국고등교육재단</span>
-    <span class="nav-sub">DREAMLECTURE CONNECT</span>
+<!-- ── NAV ── -->
+<div class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#top">
+      <img src="assets/img-02.png" alt="드림렉쳐">
+      <span>드림렉쳐 커넥트</span>
+    </a>
+    <nav class="nav-menu">
+      <a href="#about">소개</a>
+      <a href="#schedule">세미나 일정</a>
+      <a href="#how">진행 구성</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="./apply.html">세미나 신청</a>
+    </nav>
   </div>
-  <a href="./apply.html" class="nav-cta">하반기 세미나 신청 →</a>
-</nav>
+</div>
 
-<!-- HERO -->
-<section class="hero">
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <img class="hero-bg" src="assets/img-14.jpg" alt="">
+  <div class="hero-veil"></div>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="hero-tag-dot"></span>
-      드림렉쳐 커넥트
-    </div>
-    <div class="hero-title">
-      온라인<br>
-      <span class="hero-title-accent">진로세미나</span>
-    </div>
-    <div class="hero-sub">CONNECT</div>
+    <span class="eyebrow">한국고등교육재단 지식나눔 프로젝트</span>
+    <h1>드림렉쳐<br>커넥트</h1>
+    <p class="hero-sub">온라인 진로세미나</p>
     <p class="hero-desc">
-      한국고등교육재단 장학생이 직접 들려주는 전공-진로 탐색 세미나.<br>
+      한국고등교육재단 장학생이 직접 들려주는 전공·진로 탐색 세미나.<br>
       매달 하루, 나의 꿈을 현실로 연결하는 1시간.
     </p>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">1시간</div>
-        <div class="hero-stat-label">세미나 진행</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">2인</div>
-        <div class="hero-stat-label">이공계 + 인문사회 멘토</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">월 1회</div>
-        <div class="hero-stat-label">개최</div>
-      </div>
-    </div>
-    <div class="hero-actions">
-      <a href="#schedule" class="btn-primary">2026 일정 보기</a>
-      <a href="#how" class="btn-ghost">세미나 구성 보기</a>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-arrow"></div>
-    scroll
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="section-inner">
-    <div class="section-tag">PROGRAM OVERVIEW</div>
-    <h2 class="section-title">드림렉쳐 커넥트란?</h2>
-    <p class="section-desc">
-      현재 대학교에 재학 중인 한국고등교육재단 장학생이 자신의 전공과 진로 선택 과정을 직접 소개하는 온라인 진로 세미나입니다.
-      단순한 강의가 아닌, 나와 비슷한 고민을 했던 선배와의 솔직한 대화의 자리입니다.
-    </p>
-    <div class="about-grid">
-      <div class="about-card">
-        <div class="about-card-icon">💻</div>
-        <div class="about-card-title">온라인 실시간</div>
-        <div class="about-card-desc">집에서 편하게 참여하는 온라인 진로 세미나. Zoom을 통해 전국 어디서나 참여 가능합니다.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">🧑‍🎓</div>
-        <div class="about-card-title">KFAS 장학생 멘토</div>
-        <div class="about-card-desc">국내 유수 대학에 재학 중인 재단 장학생들이 직접 전공과 진로 이야기를 들려줍니다.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">🗣️</div>
-        <div class="about-card-title">자유로운 Q&A</div>
-        <div class="about-card-desc">입시, 공부법, 대학 생활까지 무엇이든 물어볼 수 있는 질의응답 시간이 충분히 마련됩니다.</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-icon">🔁</div>
-        <div class="about-card-title">이공계 + 인문사회</div>
-        <div class="about-card-desc">매 회마다 이공계 1명, 인문사회계 1명의 멘토가 함께해 폭넓은 진로 탐색이 가능합니다.</div>
-      </div>
+    <div class="hero-chips">
+      <span>1시간 세미나</span>
+      <span>이공계 + 인문사회 멘토 2인</span>
+      <span>월 1회 개최</span>
     </div>
   </div>
 </section>
 
-<!-- SCHEDULE -->
-<section class="schedule" id="schedule">
-  <div class="section-inner">
-    <div class="section-tag">2026 SCHEDULE</div>
-    <h2 class="section-title">세미나 일정</h2>
-    <p class="section-desc">상반기 3회, 하반기 3회로 연간 총 6회 운영됩니다. 매 회 신청 가능한 주제와 전공이 공개됩니다.</p>
-
-    <div class="schedule-tabs">
-      <button class="tab-btn" onclick="switchTab('spring', this)">상반기 (4–6월)</button>
-      <button class="tab-btn active" onclick="switchTab('fall', this)">하반기 (9–11월)</button>
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-num">1시간</span>
+      <span class="stat-label">세미나 진행</span>
     </div>
-
-    <div id="tab-spring" class="tab-content">
-      <div class="schedule-list">
-
-        <div class="schedule-card done">
-          <div class="schedule-date-block">
-            <div class="schedule-month">APR</div>
-            <div class="schedule-day">14</div>
-            <div class="schedule-weekday">화요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-done">종료</span>
-              <span class="schedule-time">19:00 — 20:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">심리학</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">국사학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="schedule-card done">
-          <div class="schedule-date-block">
-            <div class="schedule-month">MAY</div>
-            <div class="schedule-day">12</div>
-            <div class="schedule-weekday">화요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-done">종료</span>
-              <span class="schedule-time">19:00 — 20:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">화학</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">정치외교학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="schedule-card done">
-          <div class="schedule-date-block">
-            <div class="schedule-month">JUN</div>
-            <div class="schedule-day">13</div>
-            <div class="schedule-weekday">토요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-done">종료</span>
-              <span class="schedule-time">14:00 — 15:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">전자공학 (AI)</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">국제학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div class="stat">
+      <span class="stat-num">2인</span>
+      <span class="stat-label">이공계 + 인문사회 멘토</span>
     </div>
+    <div class="stat">
+      <span class="stat-num">월 1회</span>
+      <span class="stat-label">상반기 3회 · 하반기 3회</span>
+    </div>
+  </div>
+</div>
 
-    <div id="tab-fall" class="tab-content active">
-      <div class="schedule-list">
-
-        <div class="schedule-card next">
-          <div class="schedule-date-block">
-            <div class="schedule-month">SEP</div>
-            <div class="schedule-day">15</div>
-            <div class="schedule-weekday">화요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-next">신청 중</span>
-              <span class="schedule-time">19:00 — 20:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">기계공학 (모빌리티)</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">국사학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-date-block">
-            <div class="schedule-month">OCT</div>
-            <div class="schedule-day">24</div>
-            <div class="schedule-weekday">토요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-fall">하반기 예정</span>
-              <span class="schedule-time">14:00 — 15:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">글로벌바이오메디컬공학</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">철학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="schedule-card">
-          <div class="schedule-date-block">
-            <div class="schedule-month">NOV</div>
-            <div class="schedule-day">14</div>
-            <div class="schedule-weekday">토요일</div>
-          </div>
-          <div class="schedule-info">
-            <div class="schedule-top">
-              <span class="badge badge-fall">하반기 예정</span>
-              <span class="schedule-time">14:00 — 15:00</span>
-            </div>
-            <div class="schedule-majors">
-              <div class="major-chip">
-                <span class="major-chip-type chip-stem">이공계</span>
-                <span class="major-chip-name">바이오 및 뇌공학</span>
-              </div>
-              <div class="major-chip">
-                <span class="major-chip-type chip-hum">인문사회</span>
-                <span class="major-chip-name">법학</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+<!-- ── ABOUT ── -->
+<section class="section" id="about">
+  <div class="section-head">
+    <span class="label">PROGRAM OVERVIEW</span>
+    <h2>드림렉쳐 커넥트란?</h2>
+    <p>현재 대학교에 재학 중인 한국고등교육재단 장학생이 자신의 전공과 진로 선택 과정을 직접 소개하는 온라인 진로 세미나입니다. 단순한 강의가 아닌, 나와 비슷한 고민을 했던 선배와의 솔직한 대화의 자리입니다.</p>
+  </div>
+  <div class="feature-grid">
+    <div class="feature">
+      <span class="label">ONLINE</span>
+      <h3>온라인 실시간</h3>
+      <p>집에서 편하게 참여하는 온라인 진로 세미나. Zoom을 통해 전국 어디서나 참여 가능합니다.</p>
+    </div>
+    <div class="feature">
+      <span class="label">MENTOR</span>
+      <h3>KFAS 장학생 멘토</h3>
+      <p>국내 유수 대학에 재학 중인 재단 장학생들이 직접 전공과 진로 이야기를 들려줍니다.</p>
+    </div>
+    <div class="feature">
+      <span class="label">Q&amp;A</span>
+      <h3>자유로운 Q&amp;A</h3>
+      <p>입시, 공부법, 대학 생활까지 무엇이든 물어볼 수 있는 질의응답 시간이 충분히 마련됩니다.</p>
+    </div>
+    <div class="feature">
+      <span class="label">BALANCE</span>
+      <h3>이공계 + 인문사회</h3>
+      <p>매 회마다 이공계 1명, 인문사회계 1명의 멘토가 함께해 폭넓은 진로 탐색이 가능합니다.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="how" id="how">
-  <div class="section-inner">
-    <div class="section-tag">SESSION STRUCTURE</div>
-    <h2 class="section-title">1시간, 이렇게 진행됩니다</h2>
-    <p class="section-desc">멘토 소개부터 깊이 있는 Q&A까지, 알차게 구성된 1시간 세미나 흐름입니다.</p>
+<!-- ── SCHEDULE ── -->
+<section class="section" id="schedule">
+  <div class="section-head">
+    <span class="label">2026 SCHEDULE</span>
+    <h2>세미나 일정</h2>
+    <p>학기 중 월 1회 운영됩니다.</p>
+  </div>
+  <div class="schedule-grid">
 
-    <div class="timeline" style="margin-top: 48px;">
-      <div class="timeline-item">
-        <div class="timeline-left">
-          <div class="timeline-num">1</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-title">장학생 소개</div>
-          <div class="timeline-desc">멘토 소개 및 세미나 오프닝. 어떤 과정을 거쳐 지금의 학과를 선택했는지 간략하게 소개합니다.</div>
-        </div>
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">APR</span><span class="session-day">14</span></div>
+        <span class="badge badge-done">종료</span>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-left">
-          <div class="timeline-num">2</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-title">전공 소개</div>
-          <div class="timeline-desc">이공계 · 인문사회 멘토 순서로 전공의 특징, 학과 커리큘럼, 실제 배우는 것들을 소개합니다. 고등학생들이 오해하기 쉬운 점도 짚어드립니다.</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-left">
-          <div class="timeline-num">3</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-title">중간 Q&A</div>
-          <div class="timeline-desc">전공 소개 내용에 대한 간단한 질의응답 시간.</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-left">
-          <div class="timeline-num">4</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-title">진로 이야기</div>
-          <div class="timeline-desc">졸업 후 실제 진로 스펙트럼, 멘토 본인의 커리어 계획(IDP), 고등학생에게 해주고 싶은 진로 조언을 들을 수 있습니다.</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-left">
-          <div class="timeline-num">5</div>
-          <div class="timeline-line"></div>
-        </div>
-        <div class="timeline-content">
-          <div class="timeline-title">종합 Q&A</div>
-          <div class="timeline-desc">입시, 공부법, 대학 생활, 동아리 등 무엇이든 자유롭게 질문하세요. 실제 경험에서 나오는 솔직한 답변을 들을 수 있습니다.</div>
-        </div>
+      <span class="session-when">화요일 · 19:00 — 20:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">심리학</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">국사학</span></div>
       </div>
     </div>
+
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">MAY</span><span class="session-day">12</span></div>
+        <span class="badge badge-done">종료</span>
+      </div>
+      <span class="session-when">화요일 · 19:00 — 20:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">화학</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">정치외교학</span></div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">JUN</span><span class="session-day">13</span></div>
+        <span class="badge badge-done">종료</span>
+      </div>
+      <span class="session-when">토요일 · 14:00 — 15:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">전자공학 (AI)</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">국제학</span></div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">SEP</span><span class="session-day">15</span></div>
+        <span class="badge badge-open">신청 중</span>
+      </div>
+      <span class="session-when">화요일 · 19:00 — 20:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">기계공학 (모빌리티)</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">국사학</span></div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">OCT</span><span class="session-day">24</span></div>
+        <span class="badge badge-open">신청 중</span>
+      </div>
+      <span class="session-when">토요일 · 14:00 — 15:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">글로벌바이오메디컬공학</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">철학</span></div>
+      </div>
+    </div>
+
+    <div class="session">
+      <div class="session-top">
+        <div class="session-date"><span class="session-month">NOV</span><span class="session-day">14</span></div>
+        <span class="badge badge-open">신청 중</span>
+      </div>
+      <span class="session-when">토요일 · 14:00 — 15:00</span>
+      <div class="session-majors">
+        <div class="major"><span class="major-type">이공계</span><span class="major-name">바이오 및 뇌공학</span></div>
+        <div class="major"><span class="major-type">인문사회</span><span class="major-name">법학</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- APPLY -->
+<!-- ── HOW ── -->
+<div class="how" id="how">
+  <div class="section">
+    <div class="section-head">
+      <span class="label">SESSION STRUCTURE</span>
+      <h2>1시간, 이렇게 진행됩니다</h2>
+      <p>멘토 소개부터 깊이 있는 Q&amp;A까지, 알차게 구성된 1시간 세미나 흐름입니다.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-no">1</span>
+        <h3>장학생 소개</h3>
+        <p>멘토 소개 및 세미나 오프닝. 어떤 과정을 거쳐 지금의 학과를 선택했는지 간략하게 소개합니다.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">2</span>
+        <h3>전공 소개</h3>
+        <p>이공계 · 인문사회 멘토 순서로 전공의 특징, 학과 커리큘럼, 실제 배우는 것들을 소개합니다. 고등학생들이 오해하기 쉬운 점도 짚어드립니다.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">3</span>
+        <h3>중간 Q&amp;A</h3>
+        <p>전공 소개 내용에 대한 간단한 질의응답 시간.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">4</span>
+        <h3>진로 이야기</h3>
+        <p>졸업 후 실제 진로 스펙트럼, 멘토 본인의 커리어 계획(IDP), 고등학생에게 해주고 싶은 진로 조언을 들을 수 있습니다.</p>
+      </div>
+      <div class="step">
+        <span class="step-no">5</span>
+        <h3>종합 Q&amp;A</h3>
+        <p>입시, 공부법, 대학 생활, 동아리 등 무엇이든 자유롭게 질문하세요. 실제 경험에서 나오는 솔직한 답변을 들을 수 있습니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── APPLY ── -->
 <section class="apply" id="apply">
-  <div class="section-inner">
-    <div class="section-tag">HOW TO APPLY</div>
-    <h2 class="section-title">신청 안내</h2>
-    <p class="section-desc">드림렉쳐 거점특강 또는 방문특강에 참여한 학생이라면 누구나 신청할 수 있습니다.</p>
-    <div class="apply-box">
-      <span class="apply-emoji">🎯</span>
-      <div class="apply-title">참여 자격 확인</div>
-      <p class="apply-desc">아래 조건 중 하나에 해당하는 전국의 고등학생이라면 신청 가능합니다. 각 세미나마다 별도 신청을 받습니다.</p>
-      <div class="apply-conditions">
-        <div class="condition-chip">
-          <span class="condition-icon">📍</span>
-          드림렉쳐 거점특강 참여 학생
-        </div>
-        <div class="condition-chip">
-          <span class="condition-icon">🏫</span>
-          드림렉쳐 방문특강 참여 학생
-        </div>
-      </div>
-      <a href="./apply.html">하반기 세미나 신청하기 →</a>
-      <p class="apply-note">※ 신청 링크는 각 세미나 2주 전 드림렉쳐 채널을 통해 공지됩니다</p>
+  <div class="apply-card">
+    <span class="label">HOW TO APPLY</span>
+    <h2>신청 안내</h2>
+    <p>드림렉쳐 거점특강 또는 방문특강에 참여한 학생이라면 누구나 신청할 수 있습니다. 각 세미나마다 별도 신청을 받습니다.</p>
+    <div class="apply-list">
+      <div class="apply-item"><p>드림렉쳐 거점특강 참여 학생</p></div>
+      <div class="apply-item"><p>드림렉쳐 방문특강 참여 학생</p></div>
     </div>
+    <a class="apply-btn" href="./apply.html">하반기 세미나 신청하기 →</a>
+    <span class="apply-note">※ 신청 링크는 각 세미나 2주 전 드림렉쳐 채널을 통해 공지됩니다</span>
+  </div>
+  <div class="apply-photo">
+    <img src="assets/img-04.jpg" alt="온라인 세미나 현장">
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- ── FAQ ── -->
 <section class="faq" id="faq">
-  <div class="section-inner">
-    <div class="section-tag">FAQ</div>
-    <h2 class="section-title">자주 묻는 질문</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">참가비가 있나요?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">드림렉쳐 커넥트 세미나는 무료로 운영됩니다. 한국고등교육재단이 전액 지원합니다.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">어떤 플랫폼으로 진행되나요?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">Zoom을 통해 온라인으로 진행됩니다. 신청 완료 후 세미나 시작 전에 참여 링크가 안내됩니다.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">전공 분야가 내 관심사와 다르면 신청할 수 없나요?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">아닙니다! 해당 전공에 관심이 없어도 진로 탐색 자체에 관심이 있다면 충분히 유익한 시간이 됩니다. 실제 장학생이 들려주는 대학 생활과 진로 이야기는 어떤 전공을 꿈꾸더라도 도움이 됩니다.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">Q&A에서 어떤 질문을 해도 되나요?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">네, 자유롭게 질문하세요. 학과 선택, 공부 방법, 생활기록부, 대학 생활, 입시 전략, 멘탈 관리까지 무엇이든 환영합니다. 실제 참여 학생들이 가장 만족한 부분이 바로 솔직한 Q&A 시간이었습니다.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">
-          <span class="faq-q-text">녹화본을 나중에 볼 수 있나요?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-a">녹화본 제공 여부는 별도로 안내됩니다. 가능하면 실시간으로 참여하시는 것을 권장드립니다. 직접 질문을 통해 얻는 경험이 훨씬 크기 때문입니다.</div>
-      </div>
+  <div class="section-head">
+    <span class="label">FAQ</span>
+    <h2>자주 묻는 질문</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item open">
+      <button class="faq-q" type="button" aria-expanded="true">참가비가 있나요?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div><p>드림렉쳐 커넥트 세미나는 무료로 운영됩니다. 한국고등교육재단이 전액 지원합니다.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button" aria-expanded="false">어떤 플랫폼으로 진행되나요?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div><p>Zoom을 통해 온라인으로 진행됩니다. 신청 완료 후 세미나 시작 전에 참여 링크가 안내됩니다.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button" aria-expanded="false">전공 분야가 내 관심사와 다르면 신청할 수 없나요?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div><p>아닙니다! 해당 전공에 관심이 없어도 진로 탐색 자체에 관심이 있다면 충분히 유익한 시간이 됩니다. 실제 장학생이 들려주는 대학 생활과 진로 이야기는 어떤 전공을 꿈꾸더라도 도움이 됩니다.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button" aria-expanded="false">Q&amp;A에서 어떤 질문을 해도 되나요?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div><p>네, 자유롭게 질문하세요. 학과 선택, 공부 방법, 생활기록부, 대학 생활, 입시 전략, 멘탈 관리까지 무엇이든 환영합니다. 실제 참여 학생들이 가장 만족한 부분이 바로 솔직한 Q&amp;A 시간이었습니다.</p></div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" type="button" aria-expanded="false">녹화본을 나중에 볼 수 있나요?<span class="faq-icon">+</span></button>
+      <div class="faq-a"><div><p>녹화본 제공 여부는 별도로 안내됩니다. 가능하면 실시간으로 참여하시는 것을 권장드립니다. 직접 질문을 통해 얻는 경험이 훨씬 크기 때문입니다.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="tail"></div>
+
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">한국고등교육재단</div>
-  <div class="footer-sub">Korea Foundation for Advanced Studies</div>
-  <div class="footer-divider"></div>
-  <p class="footer-copy">드림렉쳐 커넥트 온라인 진로 세미나 · 지식나눔팀</p>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <a class="footer-logo" href="https://www.kfas.or.kr/" target="_blank" rel="noopener">
+        <img src="assets/img-05.png" alt="한국고등교육재단 홈페이지">
+      </a>
+      <p>
+        드림렉쳐 커넥트 온라인 진로 세미나 · 지식나눔팀<br>
+        전화 02-6310-7876 · <a href="mailto:dreamlecture@kfas.or.kr">dreamlecture@kfas.or.kr</a>
+      </p>
+    </div>
+  </div>
 </footer>
 
 <script>
-  function switchTab(id, btn) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-    btn.classList.add('active');
-  }
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const wasOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!wasOpen) item.classList.add('open');
-  }
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 </script>
 </body>
 </html>
